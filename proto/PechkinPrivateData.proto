@@ -1,0 +1,61 @@
+package pro.fenenko.Pechkin;
+
+option java_outer_classname = "ProtobufPrivateData";
+message Message{
+		required int64 ID = 1;
+		required string AddressFrom =2;
+		required string AddressTo = 3;
+		required string Text = 4;
+		required int64 time = 5;
+		required int32 status =6 ;
+
+	}
+message Address{
+		required int32 ID = 1;
+		required string Address = 2;
+		required string SignKey = 3;
+		required string CiphKey = 4;
+		optional int32 pow1 = 5;
+		optional int32 pow2 = 6;
+		optional int64 extendedOptions = 7;
+	}
+
+message PubKey{
+	required int32 ID = 1;
+	required string Address = 2;
+	required bytes Key = 3;
+	optional int32 pow1 = 4;
+	optional int32 pow2 = 5;
+}
+
+message Ack{
+	required int32 ID = 1;
+	required int64 messageID = 2;
+	required bytes ack = 3;
+}
+
+message Subscrib{
+	required string Address  = 1;
+}
+
+
+
+message NameAddress{
+	required string Name = 1;
+	required string Address = 2;
+}
+
+
+
+
+
+message PrivateData {
+  repeated Message messages= 1;
+  repeated PubKey keys = 2;
+  repeated Address addresses = 3;
+  repeated Ack waitAck = 4;
+  repeated Subscrib AddressSubscrib = 5;
+  repeated NameAddress Addressbook = 6;
+}
+
+

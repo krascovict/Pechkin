@@ -1,0 +1,36 @@
+package pro.fenenko.Pechkin;
+
+option java_outer_classname = "ProtobufBMObject";
+
+
+message BMObjectInv{
+		required int64 ExpireTime =1;
+		required int32 Type = 2;
+		required bytes Inv = 3;
+		optional string FileName = 4;
+		optional int64 sumInv = 5;
+		
+
+}
+
+message BMObjectData{
+		required int64 ExpireTime =1;
+		required int32 Type = 2;
+		required bytes Inv = 3;
+		required bytes Data = 4;
+
+}
+
+
+message DataObjects{
+    required string FileName = 1;
+    repeated BMObjectData Objects = 2;
+
+}
+
+message InvObjects {
+    required int32 Id = 1;
+    repeated BMObjectInv INV = 2;
+}
+
+

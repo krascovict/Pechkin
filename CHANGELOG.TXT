@@ -1,0 +1,64 @@
+This is the change log to Project. For further info on this project, see the ReadMe file.
+
+All notable changes to this project will be documented in this file.
+
+The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
+
+Principles of a change log, excerpted from Keep a Changelog:
+
+    It’s made for humans, not machines, so legibility is crucial.
+    Easy to link to any section (hence Markdown over plain text).
+    One sub-section per version.
+    List releases in reverse-chronological order (newest on top).
+    Write all dates in YYYY-MM-DD format. (Example: 2012-06-02 for June 2nd, 2012.) It’s international, sensible, and language-independent.
+    Explicitly mention whether the project follows Semantic Versioning.
+    Each version should:
+        List its release date in the above format.
+        Group changes to describe their impact on the project, as follows:
+        Added for new features.
+        Changed for changes in existing functionality.
+        Deprecated for once-stable features removed in upcoming releases.
+        Removed for deprecated features removed in this release.
+        Fixed for any bug fixes.
+        Security to invite users to upgrade in case of vulnerabilities.
+
+[0.3.1] - 2017-08-22
+Added
+   
+    build windows installer
+
+Fix
+
+    error not create poppup menu in addressTree
+    not sent broadcast message
+
+
+[0.3.0] - 2017-07-31
+Added
+
+    added message filtering
+    added  manage message toolbar
+    added  message  sorting
+    added unread message mark 	  
+
+Fix
+    
+    problem repeated receiving message
+   
+
+[0.2.0] - 2017-07-14
+Added
+
+    Chan
+
+Changed
+
+    Chan
+
+    Added support in pechkin, bitmessage chan.
+
+Fix
+
+   error in function BMParse.decodeMessage
+
+

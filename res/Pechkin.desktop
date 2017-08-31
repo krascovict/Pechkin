@@ -1,0 +1,14 @@
+#!/usr/bin/env ./run.sh
+
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Pechkin
+Comment=Bitmessage Client
+Exec=/bin/sh "java -Xmx64m -jar Pechkin.jar"
+Icon=ic_launcher_144.png
+Categories=Application
+Version=1.0
+Type=Application
+Terminal=0
+

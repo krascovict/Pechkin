@@ -1,0 +1,13 @@
+package pro.fenenko.Pechkin;
+
+option java_outer_classname = "ProtobufConfig";
+
+
+
+message Config {
+    required int32 ServerPort = 1;
+    required int32 ServerConnect = 2;
+    required int32 ClientConnect = 3;
+}
+
+

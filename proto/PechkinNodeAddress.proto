@@ -1,0 +1,21 @@
+package pro.fenenko.Pechkin;
+
+option java_outer_classname = "ProtobufNodeAddress";
+message NodeAddress{
+		required int32 ID = 1;
+		required int64 Time =2;
+		required string ip = 3;
+		required int32 port = 4;
+                required int32 CountConnect = 5;
+
+	}
+
+
+
+message NodeAddresses{ 
+  required int32 oldId= 1;
+  repeated NodeAddress address= 2;
+
+}
+
+
