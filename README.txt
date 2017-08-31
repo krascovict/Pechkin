@@ -12,13 +12,8 @@ Fix:
 	error not create poppup menu in addressTree
 	not sent broadcast message
 
+
 This is desktop version Pechkin.
-Repositories android version - http://hg.code.sf.net/p/pechkin/android
-	
-
-
-
-
 
 
 Address to contact the developer: BM-2cT9H4ow7R35qLhcsiTNxFjTpnx44XTbiY
@@ -26,22 +21,24 @@ Address to contact the developer: BM-2cT9H4ow7R35qLhcsiTNxFjTpnx44XTbiY
 
 INSTALL(linux):
 install java JRE
-download https://sourceforge.net/projects/pechkin/files/Pechkin_v.0.3.1.zip/download
-unpack Pechkin v.0.3.1.zip
+download https://sourceforge.net/projects/pechkin/files/Pechkin_v.0.3.1.tar.gz/download
+unpack Pechkin v.0.3.1.tar.gz
 open unpack directory and run programm:
 run.sh  (for linux)
 
 INSTALL(windows)
-download https://sourceforge.net/projects/pechkin/files/Pechkin_v.0.3.1.win32.zip/download
-unpack 
+download https://sourceforge.net/projects/pechkin/files/pechkin%20install.v.0.3.1.exe/download
+
 
 BUILD:
-hg clone http://hg.code.sf.net/p/pechkin/code pechkin-code
-cd pechkin-code
+hg clone http://hg.code.sf.net/p/pechkin/desktop pechkin-desktop
+cd pechkin-desktop
 ant
 CREATE WINDOWS EXE FILE:
 download launch4j(http://launch4j.sourceforge.net/)
-unpack to pechkin-code
+unpack to pechkin-desktop
 ant exe
+
+Repositories android version - http://hg.code.sf.net/p/pechkin/android
 
 
