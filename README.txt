@@ -39,6 +39,6 @@ download launch4j(http://launch4j.sourceforge.net/)
 unpack to pechkin-desktop
 ant exe
 
-Repositories android version - http://hg.code.sf.net/p/pechkin/android
+Repositories android version - http://hg.code.sf.net/p/pechkin/sourceAndroid
 
 
