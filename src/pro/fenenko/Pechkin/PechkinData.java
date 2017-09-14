@@ -331,23 +331,89 @@ public class PechkinData implements BMConstant {
 
         //PechkinGC.RunGC();
     }
+    private static byte[] inv32 = new byte[32];
+    private static FileInputStream fis;
+    public static synchronized int get(byte[] inv,byte[] objectRet) {
+       
+        long time = System.currentTimeMillis();
+        boolean flag = false;
+        boolean flagFindObject = false;
+        int ret = -1;
+        synchronized (data) {
+            
 
+            for (int i = 0; (i < data.getINVCount()) && (!flag); i++) {
+                data.getINV(i).getInv().copyTo(inv32, 0, 0, 32);
+                if (equalInv(inv32, 0, inv, 0)) {
+                    String s = data.getINV(i).getFileName();
+                    try {
+                        fis = new FileInputStream(s);
+                        DataObjects object = DataObjects.parseFrom(fis);
+                        for (int j = 0; (j < object.getObjectsCount()) && (!flag); j++) {
+                            object.getObjects(j).getInv().copyTo(inv32, 0, 0, 32);
+                            if (equalInv(inv32, 0, inv, 0)) {
+                                flag = true;
+                                //ret = new byte[object.getObjects(j).getData().size()];
+                                if(objectRet.length < object.getObjects(j).getData().size()){
+                                    byte[] t = new byte[object.getObjects(j).getData().size()+2048];
+                                    objectRet = t;
+                                }   
+                                object.getObjects(j).getData().copyTo(objectRet, 0);
+                                flagFindObject = true;
+                                ret = object.getObjects(j).getData().size();
+
+                            }
+
+                        }
+                        fis.close();
+                        
+                        object = null;
+
+                    } catch (FileNotFoundException ex) {
+                        //Logger.getLogger(PechkinData.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        //Logger.getLogger(PechkinData.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            for (int i = 0; (i < buffWriteData.getObjectsCount()) && (!flagFindObject); i++) {
+                buffWriteData.getObjects(i).getInv().copyTo(inv32, 0);
+                if (equalInv(inv32, 0, inv, 0)) {
+                    if(objectRet.length < buffWriteData.getObjects(i).getData().size()){
+                        byte[] t = new byte[buffWriteData.getObjects(i).getData().size()+2048];
+                        objectRet = t;
+                    }
+                    //ret = new byte[buffWriteData.getObjects(i).getData().size()];
+                    buffWriteData.getObjects(i).getData().copyTo(objectRet, 0);
+                    ret = buffWriteData.getObjects(i).getData().size();
+                    flagFindObject = true;
+                }
+            }
+
+        }
+        //System.out.println("FIND OBJECT " + flag + " TIME " + (System.currentTimeMillis() - time) + " ms");
+
+        return ret;
+    }
+    
     public static synchronized byte[] get(byte[] inv) {
         byte[] ret = null;
         long time = System.currentTimeMillis();
         boolean flag = false;
         synchronized (data) {
-            byte[] test = new byte[32];
+            
 
             for (int i = 0; (i < data.getINVCount()) && (!flag); i++) {
-                data.getINV(i).getInv().copyTo(test, 0, 0, 32);
-                if (equalInv(test, 0, inv, 0)) {
+                data.getINV(i).getInv().copyTo(inv32, 0, 0, 32);
+                if (equalInv(inv32, 0, inv, 0)) {
                     String s = data.getINV(i).getFileName();
                     try {
-                        DataObjects object = DataObjects.parseFrom(new FileInputStream(s));
+                        fis = new FileInputStream(s);
+                        DataObjects object = DataObjects.parseFrom(fis);
                         for (int j = 0; (j < object.getObjectsCount()) && (!flag); j++) {
-                            object.getObjects(j).getInv().copyTo(test, 0, 0, 32);
-                            if (equalInv(test, 0, inv, 0)) {
+                            object.getObjects(j).getInv().copyTo(inv32, 0, 0, 32);
+                            if (equalInv(inv32, 0, inv, 0)) {
                                 flag = true;
                                 ret = new byte[object.getObjects(j).getData().size()];
                                 object.getObjects(j).getData().copyTo(ret, 0);
@@ -355,6 +421,8 @@ public class PechkinData implements BMConstant {
                             }
 
                         }
+                        fis.close();
+                        
                         object = null;
 
                     } catch (FileNotFoundException ex) {
@@ -366,8 +434,8 @@ public class PechkinData implements BMConstant {
             }
 
             for (int i = 0; (i < buffWriteData.getObjectsCount()) && (ret == null); i++) {
-                buffWriteData.getObjects(i).getInv().copyTo(test, 0);
-                if (equalInv(test, 0, inv, 0)) {
+                buffWriteData.getObjects(i).getInv().copyTo(inv32, 0);
+                if (equalInv(inv32, 0, inv, 0)) {
                     ret = new byte[buffWriteData.getObjects(i).getData().size()];
                     buffWriteData.getObjects(i).getData().copyTo(ret, 0);
                 }

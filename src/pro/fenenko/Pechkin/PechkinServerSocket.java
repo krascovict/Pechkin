@@ -135,12 +135,8 @@ public class PechkinServerSocket extends Thread implements BMMethodServer {
 
     @Override
     public byte[] receivINV(byte[] inv) {
-        //byte[] invKnow = PechkinData.getAllInv();
-        //int c = PechkinNative.getInv(inv, invKnow);
-        //inv = Arrays.copyOf(inv, c);
-        BMLog.LogD("PechkinServerSocket", "RECEIV INV");
+        BMLog.LogD("PechkinServerSocket", "RECEIV INV "+inv.length/32);
         inv = PechkinData.getRequestNewInv(inv);
-        //invKnow = null;
         return inv;
 
     }
@@ -151,9 +147,9 @@ public class PechkinServerSocket extends Thread implements BMMethodServer {
     }
 
     @Override
-    public byte[] getObject(byte[] inv) {
-        BMLog.LogD("PechkinServerSocket", "request object " + Hex.toHexString(inv));
-        return PechkinData.get(inv);
+    public int getObject(byte[] inv,byte[] object) {
+        //BMLog.LogD("PechkinServerSocket", "request object " + Hex.toHexString(inv));
+        return PechkinData.get(inv,object);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

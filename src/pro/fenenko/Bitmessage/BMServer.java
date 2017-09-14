@@ -33,7 +33,7 @@ import pro.fenenko.Pechkin.PechkinData;
  * @author Fenenko Aleksandr
  */
 public class BMServer implements BMConstant {
-
+    private static final String LOG_TAG="BMServer";
     private Socket socket;
     private BufferedInputStream bin;
     private BufferedOutputStream bout;
@@ -45,13 +45,14 @@ public class BMServer implements BMConstant {
     private BMObject retVal;
     private long timeout;
     private boolean flagConnect = false;
-    private byte[] sendData = new byte[0];
+    private byte[] sendData = new byte[409600];
     private BMTlsServer serverTls;
     private TlsServerProtocol serverProtocol;
     private BMMethodServer methodServer;
     private int lenSendData = 0;
     private long timeoutSendData = 0;
     private boolean flagSendPing;
+    private byte[] ob = new byte[409600];
 
     private byte[] inv32 = new byte[32];
 
@@ -73,6 +74,7 @@ public class BMServer implements BMConstant {
         retVal = new BMObject();
         timeout = System.currentTimeMillis();
         flagConnect = true;
+        BMLog.LogD(LOG_TAG, "connectClient Address,"+socket.getInetAddress());
 
     }
 
@@ -116,7 +118,7 @@ public class BMServer implements BMConstant {
                 transmit(t);
             }
             synchronized (sendData) {
-                if ((lenSendData != 0) && (100 < (System.currentTimeMillis() - timeoutSendData))) {
+                if ((lenSendData != 0) && (20 < (System.currentTimeMillis() - timeoutSendData))) {
                     int count = 2048;
                     if (lenSendData < count) {
                         count = lenSendData;
@@ -129,8 +131,10 @@ public class BMServer implements BMConstant {
                     lenSendData -= count;
                     timeoutSendData = System.currentTimeMillis();
                     timeout = System.currentTimeMillis();
+                    
 
                 }
+                
             }
 
             count = bin.available();
@@ -141,14 +145,17 @@ public class BMServer implements BMConstant {
                 bin.read(dataIn, lenDataIn, count);
                 lenDataIn += count;
             }
-
-            if (lenDataIn != 0) {
-                //BMLog.LogD("BMServer", "receiv packet "+Hex.toHexString(dataIn));
-            }
+            byte[] tmp = dataIn;
+            if(sendData.length/2 < lenSendData){
+                   return;
+                        
+                }
             lenDataIn = parse.getCommand(dataIn, lenDataIn, retVal);
+            /*
             if (retVal.command != PACKET_NOTDATA) {
-                BMLog.LogD("BMServer", "receiv type message " + retVal.command + " len " + lenDataIn);
+                BMLog.LogD("BMServer", "receiv type message " + retVal.command + " len " + lenDataIn+Hex.toHexString(tmp));
             }
+            */
             switch (retVal.command) {
                 case PACKET_NOTDATA:
                     break;
@@ -158,8 +165,10 @@ public class BMServer implements BMConstant {
                     BMLog.LogD("BMServer", " receiv INV " + t.length + " ");
                     t = methodServer.receivINV(t);
                     if (0 < t.length) {
+                        BMLog.LogD("BMServer", "send packet getdata "+t.length/32);
                         transmit(packet.createPacketGetdata(t));
                     }
+                    t = null;
                     break;
                 case PACKET_PONG:
                     BMLog.LogD("BMServer", " receiv PONG");
@@ -193,18 +202,23 @@ public class BMServer implements BMConstant {
                     break;
                 case PACKET_GETDATA:
                     t = (byte[]) retVal.object;
-                    System.out.println("REQUEST GETDATA ");
-                    //BMLog.LogD("BMServer", "REQUEST GETDATA " + t.length / 32);
-                    byte[] ob;
-                    byte[] inv32 = new byte[32];
+                    //System.out.println("REQUEST GETDATA ");
+                    
+                    
+                    int countSendObjects = 0;
                     for (int i = 0; i < t.length; i += 32) {
                         System.arraycopy(t, i, inv32, 0, 32);
-                        ob = methodServer.getObject(inv32);
-                        if (ob != null) {
-                            transmit(packet.createPacketObject(ob));
+                        //ob = methodServer.getObject(inv32);
+                        int count = methodServer.getObject(inv32,ob);
+                        if (0 < count) {
+                            transmit(packet.createPacketObject(ob,count));
+                            countSendObjects++;
                         }
+                        //ob = null;
                     }
-
+                    
+                    BMLog.LogD("BMServer", "REQUEST GETDATA CountGetDataObjects SendObjects  " + t.length / 32+","+countSendObjects);
+                    t = null;
                     timeout = System.currentTimeMillis();
                     break;
             }
@@ -222,7 +236,8 @@ public class BMServer implements BMConstant {
         synchronized (sendData) {
             //BMLog
             if (sendData.length < (lenSendData + data.length)) {
-                sendData = Arrays.copyOf(sendData, lenSendData + data.length);
+                BMLog.LogE("BMServer", "realloc sendData"+(sendData.length)+" "+(lenSendData+data.length));
+                sendData = Arrays.copyOf(sendData, sendData.length + data.length);
             }
             System.arraycopy(data, 0, sendData, lenSendData, data.length);
             lenSendData += data.length;

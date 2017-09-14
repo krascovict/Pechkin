@@ -533,8 +533,11 @@ public class BMParse extends BMUtils implements BMConstant {
         digest.doFinal(sha512, 0);
         if (!utils.equalBuff(data, 20, sha512, 0, 4) && (len != 0)) {
             System.arraycopy(data, len + 24, data, 0, dataLen - (len + 24));
+            BMLog.LogD("BMParse","ERROR CRC PACKET "+Hex.toHexString(data,0,24)
+                    +" CRC "+Hex.toHexString(data,20,4)+" "+Hex.toHexString(sha512,0,4));
             dataLen = dataLen - (len + 24);
             retVal.command = PACKET_NOTCRC;
+            
             return dataLen;
         }
         String command = utils.getString(data, 4);

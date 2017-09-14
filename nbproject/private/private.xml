@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/fenenko/Project/pechkin-code/src/pro/fenenko/Pechkin/PechkinAbout.java</file>
-            <file>file:/home/fenenko/Project/pechkin-code/src/pro/fenenko/Pechkin/PechkinMainWindow.java</file>
-            <file>file:/home/fenenko/Project/pechkin-code/src/pro/fenenko/Pechkin/internalization/Bundle.properties</file>
-            <file>file:/home/fenenko/Project/pechkin-code/src/pro/fenenko/Pechkin/PechkinListMessageRenderer.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMServer.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMPubKey.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMPow.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMMethodClientProcess.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinData.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMMethodNotConnect.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMMethodClientConnect.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMParse.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinMainWindow.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinServer.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinServerSocket.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinSetting.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMPacket.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMMethodServer.java</file>
         </group>
     </open-files>
 </project-private>

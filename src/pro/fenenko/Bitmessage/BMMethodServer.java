@@ -25,6 +25,7 @@ public interface BMMethodServer {
     public BMNodeAddress[] sendAddress();
     public void receivObject(byte[] object);
     public byte[] receivINV(byte[] inv);
-    public byte[] getObject(byte[] inv);
+    //public byte[] getObject(byte[] inv);
+    public int getObject(byte[] inv,byte[] object);
     public void receivAddress(BMNodeAddress[] address);
 }

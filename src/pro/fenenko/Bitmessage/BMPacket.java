@@ -147,6 +147,21 @@ public class BMPacket implements BMConstant {
         ret = ut.addBuff(ret, ut.getNewBuffer(sha512, 0, 4));
         return ret;
     }
+    
+    public byte[] createObject(byte[] buff,int len) {
+        byte[] ret = MAGICK;
+        String command = "object\0";
+        ret = ut.addBuff(ret, command.getBytes());
+        ret = ut.addBuff(ret, new byte[12 - command.length()]);
+        ret = ut.addBuff(ret, ut.intToBytes(len));
+        SHA512Digest digest = new SHA512Digest();
+        byte[] sha512 = new byte[digest.getDigestSize()];
+        digest.update(buff, 0, len);
+        digest.doFinal(sha512, 0);
+        ret = ut.addBuff(ret, ut.getNewBuffer(sha512, 0, 4));
+        ret = ut.addBuff(ret, ut.getNewBuffer(buff, 0, len));
+        return ret;
+    }
 
     public byte[] createObject(byte[] buff) {
         byte[] ret = MAGICK;
@@ -374,6 +389,21 @@ public class BMPacket implements BMConstant {
         digest.doFinal(sha512, 0);
         ret = ut.addBuff(ret, ut.getNewBuffer(sha512, 0, 4));
         ret = ut.addBuff(ret, buff);
+        return ret;
+    }
+    
+    public byte[] createPacketObject(byte[] buff,int len) {
+        byte[] ret = MAGICK;
+        String command = "object\0";
+        ret = ut.addBuff(ret, command.getBytes());
+        ret = ut.addBuff(ret, new byte[12 - command.length()]);
+        ret = ut.addBuff(ret, ut.intToBytes(len));
+        SHA512Digest digest = new SHA512Digest();
+        byte[] sha512 = new byte[digest.getDigestSize()];
+        digest.update(buff, 0, len);
+        digest.doFinal(sha512, 0);
+        ret = ut.addBuff(ret, ut.getNewBuffer(sha512, 0, 4));
+        ret = ut.addBuff(ret, ut.getNewBuffer(buff, 0, len));
         return ret;
     }
 
