@@ -88,8 +88,8 @@ public class PechkinServer extends Thread implements BMConstant {
                 continue;
             }
                 System.out.println("Connect to " + sock.getInetAddress().toString());
-                BufferedInputStream bin = new BufferedInputStream(sock.getInputStream(), 4096);
-                BufferedOutputStream bout = new BufferedOutputStream(sock.getOutputStream(), 4096);
+                BufferedInputStream bin = new BufferedInputStream(sock.getInputStream(), 10240);
+                BufferedOutputStream bout = new BufferedOutputStream(sock.getOutputStream(), 10240);
                 long timeout = System.currentTimeMillis();
                 boolean flag = true;
                 BMObject retVal = new BMObject();

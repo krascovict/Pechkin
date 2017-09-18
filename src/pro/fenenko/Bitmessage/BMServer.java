@@ -218,6 +218,9 @@ public class BMServer implements BMConstant {
                     }
                     
                     BMLog.LogD("BMServer", "REQUEST GETDATA CountGetDataObjects SendObjects  " + t.length / 32+","+countSendObjects);
+                    if(countSendObjects == 0){
+                        BMLog.LogD("BMServer", "receiv request "+Hex.toHexString(t));
+                    }
                     t = null;
                     timeout = System.currentTimeMillis();
                     break;

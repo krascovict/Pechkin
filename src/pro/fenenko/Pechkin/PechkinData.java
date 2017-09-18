@@ -346,6 +346,7 @@ public class PechkinData implements BMConstant {
                 data.getINV(i).getInv().copyTo(inv32, 0, 0, 32);
                 if (equalInv(inv32, 0, inv, 0)) {
                     String s = data.getINV(i).getFileName();
+                    //BMLog.LogD("PechkinData", "find inv "+Hex.toHexString(inv)+" "+data.getINV(i).getFileName());
                     try {
                         fis = new FileInputStream(s);
                         DataObjects object = DataObjects.parseFrom(fis);
@@ -371,8 +372,10 @@ public class PechkinData implements BMConstant {
 
                     } catch (FileNotFoundException ex) {
                         //Logger.getLogger(PechkinData.class.getName()).log(Level.SEVERE, null, ex);
+                        BMLog.LogE("PechkinData", "error file not found "+ex.getMessage());
                     } catch (IOException ex) {
                         //Logger.getLogger(PechkinData.class.getName()).log(Level.SEVERE, null, ex);
+                        BMLog.LogE("PechkinData", "error IO exception "+ex.getMessage());
                     }
                 }
             }

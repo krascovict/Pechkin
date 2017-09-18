@@ -21,6 +21,7 @@ import org.bouncycastle.crypto.digests.SHA512Digest;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 /**
  *
@@ -55,22 +56,33 @@ public class BMPow {
         }
     }
 
-    public byte[] calculatePow(BigInteger target, byte[] data) {
+    public byte[] calculatePow(long ttl, int nonce_trials_per_byte, int extra_bytes,  byte[] data) {
         long count = 0;
         long time;
         long i = 0;
+        boolean flagRepeatedCalculateTTL = false;
 
         byte[] buff_nonce;
+        ttl = ttl + (new Random()).nextInt(300);
+        BigInteger target;// = calculatePowTarget(ttl,nonce_trials_per_byte,extra_bytes,data.length);
 
-        BigInteger nonce = new BigInteger("0");
-        BigInteger trial_val = new BigInteger("0");
+        BigInteger nonce;// = new BigInteger("0");
+        BigInteger trial_val;// = new BigInteger("0");
         SHA512Digest digest = new SHA512Digest();
         byte[] sha = new byte[digest.getDigestSize()];
         byte[] initialHash = new byte[digest.getDigestSize()];
-        digest.update(data, 0, data.length);
-        digest.doFinal(initialHash, 0);
+        
 
         time = System.currentTimeMillis() / 1000L;
+        do{
+            if(flagRepeatedCalculateTTL){
+                BMLog.LogE("BMPow","error calculating TTL repeated start calculating");
+            }
+            target = calculatePowTarget(ttl,nonce_trials_per_byte,extra_bytes,data.length);
+            nonce = new BigInteger("0");
+            trial_val = new BigInteger("0");
+            digest.update(data, 0, data.length);
+            digest.doFinal(initialHash, 0);
         do {
             nonce = nonce.add(BigInteger.ONE);
 
@@ -98,12 +110,41 @@ public class BMPow {
             }
 
         } while ((trial_val.compareTo(target) == 1));
-
         buff_nonce = nonce.toByteArray();
 
         buff_nonce = utils.addBuff(new byte[8 - buff_nonce.length], buff_nonce);
+        byte[] buff_test = utils.addBuff(buff_nonce, data);
+        
+        flagRepeatedCalculateTTL = !checkPow(100,nonce_trials_per_byte,extra_bytes,buff_test);
+        
+        }while(flagRepeatedCalculateTTL);
+
+        
 
         return buff_nonce;
+    }
+    
+    public boolean checkPow(long ttl,int nonce_trials_per_byte, int extra_bytes, byte[] payload) {
+        SHA512Digest sha512 = new SHA512Digest();
+        byte[] msha = new byte[sha512.getDigestSize()];
+        
+        byte[] nonce = utils.getNewBuffer(payload, 0, 8);
+        BigInteger target = calculatePowTarget(ttl, nonce_trials_per_byte, extra_bytes, payload.length - 8);
+        sha512.update(utils.getNewBuffer(payload, 0, payload.length), 8, payload.length - 8);
+        sha512.doFinal(msha, 0);
+        //sha512.reset();
+        //byte [] n = {-1,-1,-1,-1,-1,-1,-1,-1};
+        byte[] t = utils.addBuff(nonce, msha);
+        sha512.update(t, 0, t.length);
+        sha512.doFinal(msha, 0);
+        //sha512.reset();
+        sha512.update(msha, 0, msha.length);
+        sha512.doFinal(msha, 0);
+        //printBuff("res value ",getNewBuffer(msha,0,8));
+        BigInteger res = new BigInteger(utils.getNewBuffer(msha, 0, 8));
+        //printBuff("nonce ",nonce);
+
+        return res.compareTo(target) == -1;
     }
 
     public boolean checkPow(int nonce_trials_per_byte, int extra_bytes, byte[] payload) {

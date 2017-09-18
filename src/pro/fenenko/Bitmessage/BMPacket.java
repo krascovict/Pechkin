@@ -346,11 +346,11 @@ public class BMPacket implements BMConstant {
 
         message = ut.addBuff(PechkinNativeLibrary.calculatePow(target.longValue(),message), message); // Здесь должна начинатся prof of work
          */
-        BigInteger target = BMPow.calculatePowTarget(ttl, 1000, 1000, message.length);
+        //BigInteger target = BMPow.calculatePowTarget(ttl, 1000, 1000, message.length);
         //long target = (two.pow(64).longValue() / (1000*(object_data.length + 8 + 1000 + ((ttl*(object_data.length+8+1000))/two.pow(16).longValue()))));
 
         //message = ut.addBuff(PechkinNativeLibrary.calculatePow(target.longValue(),message), message); // Здесь должна начинатся prof of work
-        message = ut.addBuff((new BMPow()).calculatePow(target, message), message); // Здесь должна начинатся prof of work
+        message = ut.addBuff((new BMPow()).calculatePow(ttl, 1000, 1000, message), message); // Здесь должна начинатся prof of work
 
         return message;
     }
@@ -414,9 +414,9 @@ public class BMPacket implements BMConstant {
         ret = ut.addBuff(ret, ut.createVarInt(1));
         ret = ut.addBuff(ret, ut.createVarInt(stream));
         ret = ut.addBuff(ret, ack_key);
-        BigInteger target = BMPow.calculatePowTarget(ttl, pow1, pow2, ret.length);
+        //BigInteger target = BMPow.calculatePowTarget(ttl, pow1, pow2, ret.length);
         //ret = ut.addBuff(PechkinNativeLibrary.calculatePow(target.longValue(),ret),ret);
-        ret = ut.addBuff((new BMPow()).calculatePow(target, ret), ret);
+        ret = ut.addBuff((new BMPow()).calculatePow(ttl, pow1, pow2, ret), ret);
         return ret;
 
     }
@@ -475,11 +475,11 @@ public class BMPacket implements BMConstant {
         message = ut.addBuff(object_message, encrypt_data);
         //println("START POW MESSAGE");
         //start_time = (long)(System.currentTimeMillis() / 1000L);
-        BigInteger target = BMPow.calculatePowTarget(ttl, pow1, pow2, message.length);
+        //BigInteger target = BMPow.calculatePowTarget(ttl, pow1, pow2, message.length);
         //long target = (two.pow(64).longValue() / (1000*(object_data.length + 8 + 1000 + ((ttl*(object_data.length+8+1000))/two.pow(16).longValue()))));
 
         //message = ut.addBuff(PechkinNativeLibrary.calculatePow(target.longValue(),message), message); // Здесь должна начинатся prof of work
-        message = ut.addBuff((new BMPow()).calculatePow(target, message), message); // Здесь должна начинатся prof of work
+        message = ut.addBuff((new BMPow()).calculatePow(ttl, pow1, pow2, message), message); // Здесь должна начинатся prof of work
 
         //long start_time = (long)(System.currentTimeMillis() / 1000L);
         //long target = (two.pow(64).longValue() / (1000*(object_data.length + 8 + 1000 + ((ttl*(object_data.length+8+1000))/two.pow(16).longValue()))));
@@ -506,9 +506,9 @@ public class BMPacket implements BMConstant {
         decryptData = ut.addBuff(decryptData, ut.createVarInt(4));
         decryptData = ut.addBuff(decryptData, ut.createVarInt(1));
         decryptData = ut.addBuff(decryptData, (new BMAddressUtils()).getTagAddressBM(address));
-        target = BMPow.calculatePowTarget(1 * 24 * 60 * 60, 1000, 1000, decryptData.length);
+        //target = BMPow.calculatePowTarget(1 * 24 * 60 * 60, 1000, 1000, decryptData.length);
         //byte[] pow = PechkinNativeLibrary.calculatePow(target,decryptData);
-        byte[] pow = (new BMPow()).calculatePow(target, decryptData);
+        byte[] pow = (new BMPow()).calculatePow(1 * 24 * 60 * 60, 1000, 1000, decryptData);
         //System.out.println("LEN POW = "+pow.length+" decryptDATA LEN = "+decryptData.length);
         decryptData = ut.addBuff(pow, decryptData);
 
@@ -549,11 +549,11 @@ public class BMPacket implements BMConstant {
             object_data = ut.addBuff(object_data, encrypt_data);
             //
 
-            BigInteger target = BMPow.calculatePowTarget(ttl, 1000, 1000, object_data.length);
+            //BigInteger target = BMPow.calculatePowTarget(ttl, 1000, 1000, object_data.length);
             //long target = (two.pow(64).longValue() / (1000*(object_data.length + 8 + 1000 + ((ttl*(object_data.length+8+1000))/two.pow(16).longValue()))));
 
             //pow = PechkinNativeLibrary.calculatePow(target.longValue(), object_data);
-            pow = (new BMPow()).calculatePow(target, object_data);
+            pow = (new BMPow()).calculatePow(ttl, 1000, 1000,  object_data);
         } while (pow == null);
         object_data = ut.addBuff(pow, object_data); // Здесь должна начинатся prof of work
         //object_data = ut.addBuff(BMPow.calculatePow(target,object_data), object_data); // Здесь должна начинатся prof of work
