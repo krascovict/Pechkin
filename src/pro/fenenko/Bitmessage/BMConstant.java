@@ -22,7 +22,7 @@ package pro.fenenko.Bitmessage;
 
 public interface  BMConstant {
     public static final byte[] MAGICK = {-23, -66, -76, -39};
-    public static final String USER_AGENT = "/Pechkin:v0.3.0/";
+    public static final String USER_AGENT = "/Pechkin:v0.3.2/";
     public static final int PROTOCOL_VERSION = 3;
     public static final int SERVICES = 3;
     public static final int PACKET_VERSION  = 1;

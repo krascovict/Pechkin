@@ -22,6 +22,16 @@ Principles of a change log, excerpted from Keep a Changelog:
         Fixed for any bug fixes.
         Security to invite users to upgrade in case of vulnerabilities.
 
+[0.3.2] - 2017-09-18
+Added
+
+    check pow after calculating
+    
+Fix
+
+    crach server 
+    
+
 [0.3.1] - 2017-08-22
 Added
    

@@ -76,7 +76,7 @@ public class PechkinAbout extends javax.swing.JFrame {
         jScrollPane3.setViewportView(licenseBouncy);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Pechkin 0.3.1");
+        jLabel2.setText("Pechkin 0.3.2");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText(bundle.getString("THIS SOFTWARE IS DEVELOPED")); // NOI18N

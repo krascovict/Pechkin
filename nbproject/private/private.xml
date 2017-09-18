@@ -14,6 +14,7 @@
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinListMessageRenderer.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMParse.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMObject.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinAbout.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinMainWindow.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinServer.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinServerSocket.java</file>
@@ -23,6 +24,7 @@
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinMessage.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMMethodServer.java</file>
             <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Pechkin/PechkinClient.java</file>
+            <file>file:/home/fenenko/Project/pechkin-sourceDesktop/src/pro/fenenko/Bitmessage/BMConstant.java</file>
         </group>
     </open-files>
 </project-private>

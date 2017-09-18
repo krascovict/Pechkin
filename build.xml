@@ -82,8 +82,8 @@
 		<copy file="./src/pechkin/res/ic_launcher_144.png" todir="./dist"/>
 		<chmod file="./dist/Pechkin.desktop" perm="700"/>
 		<chmod file="./dist/run.sh" perm="700"/>
-		<tar destfile="Pechkin_v.0.3.1.tar" basedir="dist"/>
-		<gzip destfile="Pechkin_v.0.3.1.tar.gz" src="Pechkin_v.0.3.1.tar"/>
+		<tar destfile="Pechkin_v.0.3.2.tar" basedir="dist"/>
+		<gzip destfile="Pechkin_v.0.3.2.tar.gz" src="Pechkin_v.0.3.2.tar"/>
 
 
 	</target>	

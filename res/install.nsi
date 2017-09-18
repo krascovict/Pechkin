@@ -1,5 +1,5 @@
 
-OutFile "pechkin install.v.0.3.1.exe"
+OutFile "pechkin install.v.0.3.2.exe"
 
 SetCompressor lzma
 
